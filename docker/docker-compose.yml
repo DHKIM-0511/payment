@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: payDemo
+      MYSQL_USER: payDemo
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - "./mysql/conf.d:/etc/mysql/conf.d"
+      - "./mysql/data:/var/lib/mysql"
+    container_name: mysql-payDemo
+
+  springboot:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: payDemo_sever
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3307/payDemo?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
+      SPRING_DATASOURCE_USERNAME: payDemo
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - app-network
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
