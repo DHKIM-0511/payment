@@ -30,4 +30,8 @@ public class User {
     public void increaseViewCount(){
         this.viewCount++;
     }
+
+    public void addPoint(int p){
+        point += p;
+    }
 }
