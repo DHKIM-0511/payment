@@ -30,8 +30,8 @@ Java 17 Development Kit (JDK 17): 애플리케이션 빌드를 위해 필요합�
 1. 프로젝트 클론
 2. 빌드 실행: ```./gradlew build -x test```
 3. docker compose 실행
-   - ```cd docker```
-   - ```docker-compose up```
+   - ```cd docker``` -> docker-compose.yml 파일로 이동
+   - ```docker-compose up``` -> docker-compose 실행
 
 애플리케이션 확인:
 서버는 기본적으로 http://localhost:8080 포트에서 실행됩니다.
