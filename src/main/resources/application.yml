@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/payDemo?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://db:3306/payDemo?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
     username: payDemo
     password: 1234
   jpa:
@@ -11,5 +11,13 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+
+url:
+  toss: https://api.tosspayments.com/v1/payments/confirm
+  kakao: https://open-api.kakaopay.com/online/v1/payment/approve
+  kakao-ready: https://open-api.kakaopay.com/online/v1/payment/ready
+
+secret:
+  toss: test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6
+  kakao: DEV6997FE598CF2E6D68EDF4467D64139D4D9BC9

@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  mysql:
+  db:
+    container_name: mysql-payDemo
     image: mysql:latest
     ports:
       - "3307:3306"
@@ -13,23 +14,27 @@ services:
     volumes:
       - "./mysql/conf.d:/etc/mysql/conf.d"
       - "./mysql/data:/var/lib/mysql"
-    container_name: mysql-payDemo
+    networks:
+      - app-network
+    healthcheck:
+      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD']
+      interval: 10s
+      timeout: 2s
+      retries: 100
 
-  springboot:
+  backend:
+    container_name: sever-payDemo
     build:
       context: ../
       dockerfile: docker/Dockerfile
-    container_name: payDemo_sever
     ports:
       - "8080:8080"
     depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3307/payDemo?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
-      SPRING_DATASOURCE_USERNAME: payDemo
-      SPRING_DATASOURCE_PASSWORD: 1234
+      db:
+        condition: service_healthy
     networks:
       - app-network
+
 volumes:
   mysql_data:
 
