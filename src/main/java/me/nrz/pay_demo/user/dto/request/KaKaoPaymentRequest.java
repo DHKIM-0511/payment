@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class KaKaoPaymentRequest {
 
-    @Min(value = 1, message = "userId is greater than 1.")
+    @Min(value = 1, message = "userId must be greater than or equal to 1.")
     private int userId;
 
     @NotBlank(message = "cid is required.")
